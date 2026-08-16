@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BricsRouteImport } from './routes/brics'
+import { Route as FieldRouteImport } from './routes/field'
 import { Route as FacilityFacilityIdRouteImport } from './routes/facility.$facilityId'
 import { Route as ResourceResourceRouteImport } from './routes/resource.$resource'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const BricsRoute = BricsRouteImport.update({
   id: '/brics',
   path: '/brics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FieldRoute = FieldRouteImport.update({
+  id: '/field',
+  path: '/field',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FacilityFacilityIdRoute = FacilityFacilityIdRouteImport.update({
@@ -38,12 +44,14 @@ const ResourceResourceRoute = ResourceResourceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/brics': typeof BricsRoute
+  '/field': typeof FieldRoute
   '/facility/$facilityId': typeof FacilityFacilityIdRoute
   '/resource/$resource': typeof ResourceResourceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/brics': typeof BricsRoute
+  '/field': typeof FieldRoute
   '/facility/$facilityId': typeof FacilityFacilityIdRoute
   '/resource/$resource': typeof ResourceResourceRoute
 }
@@ -51,18 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/brics': typeof BricsRoute
+  '/field': typeof FieldRoute
   '/facility/$facilityId': typeof FacilityFacilityIdRoute
   '/resource/$resource': typeof ResourceResourceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/brics' | '/facility/$facilityId' | '/resource/$resource'
+  fullPaths:
+    '/' | '/brics' | '/field' | '/facility/$facilityId' | '/resource/$resource'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/brics' | '/facility/$facilityId' | '/resource/$resource'
+  to:
+    '/' | '/brics' | '/field' | '/facility/$facilityId' | '/resource/$resource'
   id:
     | '__root__'
     | '/'
     | '/brics'
+    | '/field'
     | '/facility/$facilityId'
     | '/resource/$resource'
   fileRoutesById: FileRoutesById
@@ -70,6 +82,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BricsRoute: typeof BricsRoute
+  FieldRoute: typeof FieldRoute
   FacilityFacilityIdRoute: typeof FacilityFacilityIdRoute
   ResourceResourceRoute: typeof ResourceResourceRoute
 }
@@ -88,6 +101,13 @@ declare module '@tanstack/react-router' {
       path: '/brics'
       fullPath: '/brics'
       preLoaderRoute: typeof BricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/field': {
+      id: '/field'
+      path: '/field'
+      fullPath: '/field'
+      preLoaderRoute: typeof FieldRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/facility/$facilityId': {
@@ -110,6 +130,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BricsRoute: BricsRoute,
+  FieldRoute: FieldRoute,
   FacilityFacilityIdRoute: FacilityFacilityIdRoute,
   ResourceResourceRoute: ResourceResourceRoute,
 }

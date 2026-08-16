@@ -31,19 +31,32 @@ export function ConsoleShell({
           </div>
         </div>
         <nav className="flex flex-col gap-1 p-2">
-          {nav.map((item) => (
-            <Link
-              key={item.label}
-              to={item.to}
-              params={"params" in item ? item.params : undefined}
-              activeOptions={{ exact: item.to === "/" }}
-              className="flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              activeProps={{ className: "bg-secondary text-foreground font-medium" }}
-            >
-              <item.icon className="size-4" />
-              {item.label}
-            </Link>
-          ))}
+          {nav.map((item) => {
+            const cls =
+              "flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground";
+            const active = { className: "bg-secondary text-foreground font-medium" };
+            const body = (
+              <>
+                <item.icon className="size-4" />
+                {item.label}
+              </>
+            );
+            return "params" in item ? (
+              <Link key={item.label} to={item.to} params={item.params} className={cls} activeProps={active}>
+                {body}
+              </Link>
+            ) : (
+              <Link
+                key={item.label}
+                to={item.to}
+                activeOptions={{ exact: item.to === "/" }}
+                className={cls}
+                activeProps={active}
+              >
+                {body}
+              </Link>
+            );
+          })}
         </nav>
         <div className="mt-auto p-3 text-[11px] leading-relaxed text-muted-foreground">
           Signed in as <span className="text-foreground">NATIONAL_MINISTRY_ADMIN</span>
