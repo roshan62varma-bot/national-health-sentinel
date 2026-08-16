@@ -198,7 +198,7 @@ export function matchRedistribution(args: {
       c.s.remaining -= qty;
       outstanding -= qty;
       manifests.push({
-        id: `MF-${args.resourceType.slice(0, 3)}-${manifests.length + 1}-${sink.facility.id}-${c.s.facility.id}`,
+        id: `MF-${args.resourceType.slice(0, 3)}-${args.label.replace(/[^a-zA-Z0-9]+/g, "").slice(0, 10)}-${manifests.length + 1}-${sink.facility.id}-${c.s.facility.id}`,
         resourceType: args.resourceType,
         label: args.label,
         sourceFacilityId: c.s.facility.id,
