@@ -22,7 +22,7 @@ export const Route = createFileRoute("/brics")({
       },
     ],
   }),
-  component: BricsPanel;
+  component: BricsPanel,
 });
 
 const NATIONS = [
