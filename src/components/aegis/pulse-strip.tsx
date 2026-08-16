@@ -15,7 +15,7 @@ function Waveform({ base, label, hash }: { base: number; label: string; hash: nu
   const points = Array.from({ length: 40 }, (_, i) => {
     const wobble = Math.sin((i + tick) * 0.55 + hash) * 0.07 + Math.sin((i + tick) * 1.7 + hash) * 0.03;
     const v = Math.min(1, Math.max(0, base + wobble));
-    return `${(i / 39) * 100},${22 - v * 20}`;
+    return `${((i / 39) * 100).toFixed(2)},${(22 - v * 20).toFixed(2)}`;
   }).join(" ");
   const color = riskColor(tierOf(base));
   return (
