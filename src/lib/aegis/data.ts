@@ -82,9 +82,9 @@ export function buildDataset(seed = 42): AegisDataset {
         const adc = 12 + Math.round(rand() * 90);
         // engineer a plausible stress pattern: Anantapur strained, Kurnool healthy
         const stressed = di === 0 && fi % 2 === 1;
-        const flush = di === 1 || (di === 2 && fi % 2 === 0);
+        const flush = di === 1 || (di === 2 && fi % 2 === 0) || (di === 0 && fi % 2 === 0);
         const dosTarget = stressed
-          ? 0.4 + rand() * 2.4
+          ? 0.15 + rand() * 0.7
           : flush
             ? 26 + rand() * 24
             : 3 + rand() * 12;
@@ -106,9 +106,10 @@ export function buildDataset(seed = 42): AegisDataset {
         });
       });
 
+      const stressedFacility = di === 0 && fi % 2 === 1;
       WARD_TYPES.forEach((ward) => {
         const total = ward === "ICU" ? 4 + Math.floor(rand() * 8) : 10 + Math.floor(rand() * 30);
-        const pressure = di === 0 ? 0.78 + rand() * 0.24 : 0.5 + rand() * 0.4;
+        const pressure = stressedFacility ? 0.96 + rand() * 0.06 : di === 0 ? 0.7 + rand() * 0.2 : 0.5 + rand() * 0.35;
         beds.push({
           id: `bed-${facility.id}-${ward}`,
           facilityId: facility.id,
@@ -120,7 +121,7 @@ export function buildDataset(seed = 42): AegisDataset {
 
       STAFF_ROLES.forEach((role) => {
         const minSafe = role === "Doctor" ? 2 : role === "Nurse" ? 6 : 3;
-        const gap = di === 0 && fi % 2 === 1 ? rand() * 0.5 : rand() * 0.2;
+        const gap = stressedFacility ? 0.45 + rand() * 0.3 : rand() * 0.2;
         staff.push({
           facilityId: facility.id,
           role,
