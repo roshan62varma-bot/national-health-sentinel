@@ -253,10 +253,11 @@ function gaussian(rng: () => number) {
 
 /** FedAvg: sample-count weighted mean of noised client updates. */
 export function fedAvg(updates: { weights: number[]; sampleCount: number }[]) {
-  if (!updates.length) return [];
+  const first = updates[0];
+  if (!first) return [];
   const total = updates.reduce((n, u) => n + u.sampleCount, 0);
-  return updates[0].weights.map((_, i) =>
-    updates.reduce((acc, u) => acc + (u.weights[i] * u.sampleCount) / total, 0),
+  return first.weights.map((_, i) =>
+    updates.reduce((acc, u) => acc + ((u.weights[i] ?? 0) * u.sampleCount) / total, 0),
   );
 }
 
