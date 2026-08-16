@@ -209,6 +209,6 @@ export function forecastFor(state: NationalState, facilityId: string, medicineId
     horizonDays,
     monthIndex: new Date().getMonth(),
     emergencyMode: Boolean(district?.emergencyMode),
-    catchmentPopulation: view?.facility.catchmentPopulation,
+    catchmentPopulation: view?.facility.catchmentPopulation ?? 20000,
   });
 }
