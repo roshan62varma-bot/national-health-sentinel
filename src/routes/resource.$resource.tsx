@@ -81,8 +81,8 @@ function StockBoard({ state }: { state: St }) {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="Lines tracked" value={String(state.dataset.stocks.length)} />
         <Stat label="Emergency lines" value={String(rows.filter((r) => r.cls === "EMERGENCY").length)} tier="RED" />
-        <Stat label="7-day demand (top risk)" value={fc7 ? String(fc7.total) : "—"} unit={first?.med.unit} />
-        <Stat label="30-day demand (top risk)" value={fc30 ? String(fc30.total) : "—"} unit={first?.med.unit} />
+        <Stat label="7-day demand (top risk)" value={fc7 ? String(fc7.total) : "—"} unit={first?.med.unit ?? ""} />
+        <Stat label="30-day demand (top risk)" value={fc30 ? String(fc30.total) : "—"} unit={first?.med.unit ?? ""} />
       </div>
 
       {first ? (
