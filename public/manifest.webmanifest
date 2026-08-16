@@ -1,0 +1,10 @@
+{
+  "name": "AegisHealth BRICS",
+  "short_name": "AegisHealth",
+  "description": "National federated health resource and supply chain command platform",
+  "start_url": "/field",
+  "display": "standalone",
+  "background_color": "#12161C",
+  "theme_color": "#0E7C86",
+  "icons": [{ "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }]
+}
