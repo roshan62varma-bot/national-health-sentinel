@@ -1,0 +1,26 @@
+# Render deployment configuration for AegisHealth BRICS
+# See https://render.com/docs/yaml-spec for details
+
+services:
+  - type: web
+    name: aegis-health-brics
+    env: node
+    region: singapore # Change to your preferred Render region (e.g. oregon, frankfurt, singapore)
+    plan: free
+    buildCommand: bun install && NITRO_PRESET=node-server bun run build
+    startCommand: node .output/server/index.mjs
+    envVars:
+      - key: NITRO_PRESET
+        value: node-server
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
